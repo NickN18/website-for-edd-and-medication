@@ -50,18 +50,19 @@ if (isset($_POST['btnRegister'])) {
 $DBcon->close();
 
 include "includes/headerNoSignIn.php";
+
 ?>
 
 <form method="post" id="RegisterForm">
     <?php if (isset($msg)) { echo $msg; } ?>
     <div>
-        <input type="text" placeholder="Name" name="userName" required />
+        <input type="text" placeholder="Name" name="userName" required/>
     </div>
     <div>
-        <input type="email" placeholder="Email address" name="userEmail" required />
+        <input type="email" placeholder="Email address" name="userEmail"required/>
     </div>
     <div>
-        <input type="password" placeholder="Password" name="userPassword" required />
+        <input type="password" placeholder="Password" name="userPassword"required/>
     </div>
     <div id="registerBtn">
         <button type="submit" name="btnRegister" id="btnRegister">Register</button> 
