@@ -32,7 +32,7 @@ if (isset($_POST['btnLogin'])) {
         header("Location: home.php");
         exit;
     } else {
-        $msg = "<div>Incorrect Username or Password</div>";
+        $msg = "<div>Incorrect userName or Password</div>";
     }
     
 }
@@ -40,6 +40,7 @@ if (isset($_POST['btnLogin'])) {
 $DBcon->close();
 
 include "includes/headerNoSignIn.php";
+
 ?>
 
 <form method="post" id="loginForm">
