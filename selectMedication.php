@@ -8,7 +8,7 @@ include "includes/menu.php";
 $servername = getenv("IP");
 $username = getenv("C9_USER");
 $password = "";
-$database = "mediPerUser"; 
+$database = "user"; 
 $dbport = 3306;
 
 $db = new mysqli($servername, $username, $passowrd, $database, $dbport);
@@ -20,13 +20,7 @@ if($db->connect_error) {
 
 ?>
 
-<div id="content">
-    Yee yee
-</div>
-
-
-
-<h2> <?php echo $_SESSION['userName'] ?> , here is your medication schedule for this week</h2>
+<h2> <?php echo $_SESSION['userName'] ?>, here is your medication schedule for this week</h2>
 
 <table id="medicationTable">
     <tr>
@@ -42,7 +36,7 @@ if($db->connect_error) {
 *******************************************************************************
 *******************************************************************************
 
-Database Name: mediPerUser
+Table Name: mediPerUser
 
 Values(userEmail, medication, dosage, dateToTake)
 
@@ -52,7 +46,7 @@ Values(userEmail, medication, dosage, dateToTake)
 
 
 
-$sql = "select medication, dosage, dateToTake from mediPerUser order by dateToTake";
+$sql = "select medication, dosage, dateToTake from user order by dateToTake";
 $result = $db->query($sql);
 
 if ($result->num_rows > 0) {
@@ -60,21 +54,10 @@ if ($result->num_rows > 0) {
 ?>
 
     <tr>
-<!--        
-
-Down below, need to create a secondary database in MySQL where it will take the data
-from the "user" database and show specific data according to the userEmail.
-
-The patient should not be able to edit any of this data, but instead, if discussed, have a contact
-button to their doctor and a information button to get more specific information to the medication type
-
-
--->
-
         </td>
-        <td><?php echo $row["movieID"]; ?></td>
-        <td><?php echo $row["title"]; ?></td>
-        <td><?php echo $row["releaseDate"]; ?></td>
+        <td><?php echo $row["medication"]; ?></td>
+        <td><?php echo $row["dosage"]; ?></td>
+        <td><?php echo $row["dateToTake"]; ?></td>
     </tr>
 
 <?php
