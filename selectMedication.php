@@ -1,9 +1,13 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="css/styles.css">
+
 <?php
 session_start();
 
 $activeMenu = "Medication";
 include "includes/header.php";
 include "includes/menu.php";
+
 
 $servername = getenv("IP");
 $username = getenv("C9_USER");
@@ -17,7 +21,6 @@ if($db->connect_error) {
     die("Connection failed" . $db->connect_error);
 }
 
-
 ?>
 
 <h2> <?php echo $_SESSION['userName'] ?>, here is your medication schedule for this week</h2>
@@ -27,26 +30,13 @@ if($db->connect_error) {
         <th>Medication</th>
         <th>Dosage</th>
         <th>Date to be taken</th>
-        <th>&nbsp;</th>
     </tr>
 
 <?php
 
-/*
-*******************************************************************************
-*******************************************************************************
+$mediUserName = $_SESSION['userName'];
 
-Table Name: mediPerUser
-
-Values(userEmail, medication, dosage, dateToTake)
-
-*******************************************************************************
-*******************************************************************************
-*/
-
-
-
-$sql = "select medication, dosage, dateToTake from user order by dateToTake";
+$sql = "SELECT medication, dosage, dateToTake FROM mediPerUser WHERE userName='$mediUserName' ORDER by dateToTake";
 $result = $db->query($sql);
 
 if ($result->num_rows > 0) {
@@ -54,7 +44,6 @@ if ($result->num_rows > 0) {
 ?>
 
     <tr>
-        </td>
         <td><?php echo $row["medication"]; ?></td>
         <td><?php echo $row["dosage"]; ?></td>
         <td><?php echo $row["dateToTake"]; ?></td>
@@ -66,11 +55,26 @@ if ($result->num_rows > 0) {
     echo "No records found";
 }
 
-$db->close();
+
+$mediUserTimeDis = "SELECT userTime FROM users WHERE userName='$mediUserName'";
+$userTimeResult = $db->query($mediUserTimeDis);
+
+if($userTimeResult->num_rows > 0) {
+    while($row = $userTimeResult->fetch_assoc()) {
+
 ?>
 
 </table>
 
+<div id = "userTimeDis">
+    <h3>Your medicine will be dispensed at <?php echo $row["userTime"]; ?> <u>everyday.</u></h3>
+</div>
 
-<script type="text/javascript" src="infoAndContact.js"></script>
+<?php
 
+    }       
+} else {
+    echo "No records found";
+}
+
+?>
